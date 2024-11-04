@@ -310,10 +310,10 @@ func copier(toValue interface{}, fromValue interface{}, opt Option) (err error) 
 
 			// Copy from source field to dest field or method
 			fromTypeFields := deepFields(fromType)
-			fmt.Printf(" ###toValue: %+v\n", toValue)
+			//fmt.Printf(" ###toValue: %+v\n", toValue)
 			for _, field := range fromTypeFields {
 				name := field.Name
-				fmt.Printf(" ###name: %+v\n", name)
+				//fmt.Printf(" ###name: %+v\n", name)
 				// Get bit flags for field
 				fieldFlags := flgs.BitFlags[name]
 
@@ -325,12 +325,12 @@ func copier(toValue interface{}, fromValue interface{}, opt Option) (err error) 
 				fieldNamesMapping := getFieldNamesMapping(mappings, fromType, toType)
 
 				srcFieldName, destFieldName := getFieldName(name, flgs, fieldNamesMapping)
-				fmt.Printf(" ###toValue2: %+v\n", toValue)
-				fmt.Printf(" ###source: %+v\n", source)
-				fmt.Printf(" ###srcFieldName: %+v\n", srcFieldName)
+				// fmt.Printf(" ###toValue2: %+v\n", toValue)
+				// fmt.Printf(" ###source: %+v\n", source)
+				// fmt.Printf(" ###srcFieldName: %+v\n", srcFieldName)
 				if fromField := fieldByNameOrZeroValue(source, srcFieldName); fromField.IsValid() && !shouldIgnore(fromField, opt.IgnoreEmpty) {
 					// process for nested anonymous field
-					fmt.Printf(" ###fromField: %+v\n", fromField)
+					//fmt.Printf(" ###fromField: %+v\n", fromField)
 					destFieldNotSet := false
 					if f, ok := dest.Type().FieldByName(destFieldName); ok {
 						// only initialize parent embedded struct pointer in the path
@@ -491,7 +491,7 @@ func copyUnexportedStructFields(to, from reflect.Value) {
 
 	// create a shallow copy of 'to' to get all fields
 	tmp := indirect(reflect.New(to.Type()))
-	fmt.Println("ZZZZZZZzz")
+
 	fmt.Println(to.Type())
 	fmt.Println(reflect.New(to.Type()))
 	fmt.Println(tmp)
@@ -688,7 +688,7 @@ func getFlags(dest, src reflect.Value, toType, fromType reflect.Type) (flags, er
 		if tags == "" {
 			continue
 		}
-		fmt.Printf("#########TAG00233 %+v\n", tags)
+		//fmt.Printf("#########TAG00233 %+v\n", tags)
 
 		var name string
 		var err error
@@ -699,11 +699,11 @@ func getFlags(dest, src reflect.Value, toType, fromType reflect.Type) (flags, er
 			flgs.DestNames.TagToFieldName[name] = field.Name
 		}
 	}
-	fmt.Printf(" ###Flags: %+v\n", flgs)
+	//fmt.Printf(" ###Flags: %+v\n", flgs)
 	// Get a list source of tags
 	for _, field := range fromTypeFields {
 		tags := field.Tag.Get("json")
-		fmt.Printf("#########TAG002 %+v\n", tags)
+		//fmt.Printf("#########TAG002 %+v\n", tags)
 		if tags == "" {
 			continue
 		}

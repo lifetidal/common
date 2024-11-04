@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Nemo-VII/common/copier"
+	"github.com/lifetidal/common/copier"
 )
 
 type User struct {
@@ -123,11 +123,11 @@ func TestCopyStruct(t *testing.T) {
 
 	copier.Copy(&employee, &user)
 	checkEmployee(employee, user, t, "Copy From Ptr To Ptr")
-
+	fmt.Printf("#####employee01####: %+v\n", employee)
 	employee2 := Employee{}
 	copier.Copy(&employee2, user)
 	checkEmployee(employee2, user, t, "Copy From Struct To Ptr")
-
+	fmt.Printf("#####employee####: %+v\n", employee)
 	employee3 := Employee{}
 	ptrToUser := &user
 	copier.Copy(&employee3, &ptrToUser)
@@ -1602,11 +1602,13 @@ func TestDeepMapCopyTime(t *testing.T) {
 		{
 			"t1": t1,
 			"t2": &t2,
+			"t3": "ff",
 		},
 	}
 	to := make([]map[string]interface{}, len(from))
 
 	err := copier.CopyWithOption(&to, from, copier.Option{DeepCopy: true})
+	fmt.Printf("TTTTTTTTTTTTTTTTTTTTTTT: %+v\n", to)
 	if err != nil {
 		t.Error("should not error")
 	}

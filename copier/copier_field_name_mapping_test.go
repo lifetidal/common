@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Nemo-VII/common/copier"
+	"github.com/lifetidal/common/copier"
 )
 
 func TestCustomFieldName(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Nemo-VII/common/copier"
+	"github.com/lifetidal/common/copier"
 )
 
 type Embedded struct {

@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Nemo-VII/common/copier"
+	"github.com/lifetidal/common/copier"
 )
 
 func TestCopyWithTypeConverters(t *testing.T) {
@@ -15,6 +15,7 @@ func TestCopyWithTypeConverters(t *testing.T) {
 		Field2 *time.Time
 		Field3 *time.Time
 		Field4 string
+		Field5 string
 	}
 
 	type DestStruct struct {
@@ -22,6 +23,7 @@ func TestCopyWithTypeConverters(t *testing.T) {
 		Field2 string
 		Field3 string
 		Field4 int
+		Field5 time.Time
 	}
 
 	testTime := time.Date(2021, 3, 5, 1, 30, 0, 123000000, time.UTC)
@@ -31,6 +33,7 @@ func TestCopyWithTypeConverters(t *testing.T) {
 		Field2: &testTime,
 		Field3: nil,
 		Field4: "9000",
+		Field5: "2024-01-02 08:00:00",
 	}
 
 	var dst DestStruct
@@ -63,6 +66,19 @@ func TestCopyWithTypeConverters(t *testing.T) {
 					}
 
 					return strconv.Atoi(s)
+				},
+			},
+			{
+				SrcType: copier.String,
+				DstType: time.Time{},
+				Fn: func(src any) (any, error) {
+					s, ok := src.(string)
+
+					if !ok {
+						return nil, errors.New("src type not matching")
+					}
+
+					return time.ParseInLocation("2006-01-02 15:04:05", s, time.Local)
 				},
 			},
 		},
