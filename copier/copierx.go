@@ -25,10 +25,10 @@ func Json2Struct(to interface{}, from string) (err error) {
 	return
 }
 
-// func Struct2StructByJson(to interface{}, from interface{}) {
-// 	Struct2Json(from)
-// 	Json2Struct(to, from.(string))
-// }
+func Struct2StructByJson(to interface{}, from interface{}) {
+	Struct2Json(from)
+	Json2Struct(to, from.(string))
+}
 
 func Json2Map(jsonStr string) (map[string]string, error) {
 	m := make(map[string]string)
